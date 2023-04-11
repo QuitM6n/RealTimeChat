@@ -1,26 +1,16 @@
-const webSocket = require('ws');
-const http = require('http');
-const express = require('express');
+"use strict";
 
-const port = 8060;
-const server = http.createServer(express);
-let s = new webSocket.Server({ server });
-s.on('connection', function connection(ws) {
-  ws.on('message', function incoming(message) {
-    s.clients.forEach(function each(element) {
-      if (element !== ws && element.readyState == webSocket.OPEN) {
-        element.send(message);
-      }
-    });
-    console.log('Recived: ' + message);
-    ws.send('From server: ', +message);
-  });
-  ws.on('close', function () {
-    console.log('Client is lost');
-  });
+import { insertDataDB } from './database.js';
 
-})
 
-server.listen(port, () => {
-  console.log('Server is listeing on ${port}')
-});
+
+export function getData() {
+  const password = document.getElementById('id_password_room');
+  const name = document.getElementById('id_name_room');
+  if (String(name).length == 0 && String(password).length == 0) {
+    throw "name or password is incorrect";
+  }
+
+  insertDataDB(password,name);
+}
+

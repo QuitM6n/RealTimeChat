@@ -5,32 +5,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./style.css">
     <title>Chat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'poppins', sans-serif;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
+    <div id="container">
         <label id="name_label_id"><strong>Enter name</strong></label>
         <input type="text" id="input_name_id" placeholder="Enter name" required>
         <button type='submit' id="clickButton">Send Name</button>
     </div>
 
 
-    <div class="chat_container" id="chat_id">
-        <h1>Real Time Messaging</h1>
+    <div class="button">
+        <button type="submit" id="private_button">Create Private Room</button>
+    </div>
 
-        <div id="text"></div>
+    <div id="private-room">
+        <label id="label_private"><b>Create private room</b></label>
+        <input type="password" id="id_password_room" placeholder="enter password" required>
+        <input type="text" id="id_name_room" placeholder="enter name room" required>
+        <button type="submit" id="add_private">Add</button>
+        <button type="submit" id="chage_password_room">ChangePassword</button>
+    </div>
+
+    <div class="chat_container" id="chat_id">
+        <br>
+        <h1>Real Time Messaging</h1> <br>
+
+        <div id="storage_text"></div>
         <div id="connected_name"></div>
 
         <input type="text" id="message" placeholder="Enter message">
         <button type='submit' id="send">Send</button>
-
-        <script language="javascript"   src="client.js" type="text/javascript">
-            
-        </script>
     </div>
-    <script src="../src/script.js"></script>
+    <script language="javascript" src="./src/client.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript" src="./src/script.js"></script>
 </body>
 
 </html>
