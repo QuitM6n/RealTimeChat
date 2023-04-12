@@ -26,16 +26,33 @@
 
     <div class="button">
         <button type="submit" id="private_button">Create Private Room</button>
+        <button type="submit" id="enter_private_room">Enter private room</button>
     </div>
 
     <div id="private-room">
-        <form action="http://localhost:8000/api" method="POST">
-        <label id="label_private"><b>Create private room</b></label>
-        <input type="password" id="id_password_room" name="password" placeholder="enter password" required>
-        <input type="text" id="id_name_room" name="name" placeholder="enter name room" required>
-        <button type="submit" id="add_private">Add</button>
-        <button type="submit" id="chage_password_room">ChangePassword</button>
-    </form>
+        <form action="http://localhost:8000/get/room/data" method="POST">
+            <label id="label_private"><b>Create private room</b></label>
+            <input type="password" id="id_password_room" name="password" placeholder="enter password" required>
+            <input type="text" id="id_name_room" name="name" placeholder="enter name room" required>
+            <button type="submit" id="add_private">Add</button>
+            <button type="submit" id="chage_password_room">ChangePassword</button>
+        </form>
+    </div>
+
+    <div id="enter_password_and_name">
+        <form action="http://localhost:8000/get/user" method="POST">
+            <input type="text" id="input_name_chat" name="name_chat" placeholder="Enter name chat">
+            <input type="text" id="input_password_chat" name="password_chat" placeholder="Enter password chat">
+            <button type="submit"><b>Connect</b></button>
+        </form>
+    </div>
+
+    <div class="private_room" id="private_room_id">
+        <h1>Private Message Chat</h1>
+        <div id="private_storage_text"></div>
+        <div id="connected_private_name"></div>
+        <input type="text" id="message_private" placeholder="Enter some message">
+        <button type="submit"><b>Send</b></button>
     </div>
 
     <div class="chat_container" id="chat_id">
