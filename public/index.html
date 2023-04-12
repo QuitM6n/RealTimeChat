@@ -29,11 +29,13 @@
     </div>
 
     <div id="private-room">
+        <form action="http://localhost:8000/api" method="POST">
         <label id="label_private"><b>Create private room</b></label>
-        <input type="password" id="id_password_room" placeholder="enter password" required>
-        <input type="text" id="id_name_room" placeholder="enter name room" required>
+        <input type="password" id="id_password_room" name="password" placeholder="enter password" required>
+        <input type="text" id="id_name_room" name="name" placeholder="enter name room" required>
         <button type="submit" id="add_private">Add</button>
         <button type="submit" id="chage_password_room">ChangePassword</button>
+    </form>
     </div>
 
     <div class="chat_container" id="chat_id">
@@ -46,7 +48,6 @@
         <input type="text" id="message" placeholder="Enter message">
         <button type='submit' id="send">Send</button>
     </div>
-    <script language="javascript" src="./src/client.js" type="text/javascript"></script>
     <script language="javascript" type="text/javascript" src="./src/script.js"></script>
 </body>
 
