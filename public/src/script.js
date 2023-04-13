@@ -1,4 +1,3 @@
-"use strict";
 
 document.getElementById('chat_id').hidden = true;
 
@@ -21,11 +20,10 @@ function switchOff() {
     document.getElementById('send').hidden = true;
 }
 
-document.getElementById('private_room_id').hidden = true;
-
 document.getElementById('enter_password_and_name').hidden = true;
 
-document.getElementById('enter_private_room').onclick = () => {
+document.getElementById('enter_private_room').onclick = () =>{
     document.getElementById('container').hidden = true;
-    document.getElementById('enter_password_and_name').hidden = false;
+    document.getElementById('enter_password_and_name').hidden =false;
 }
+

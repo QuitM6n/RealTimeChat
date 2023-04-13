@@ -7,12 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'poppins', sans-serif;
-        }
     </style>
 </head>
 
@@ -30,7 +24,7 @@
     </div>
 
     <div id="private-room">
-        <form action="http://localhost:8000/get/room/data" method="POST">
+        <form action="http://localhost:8000/create/room" method="POST">
             <label id="label_private"><b>Create private room</b></label>
             <input type="password" id="id_password_room" name="password" placeholder="enter password" required>
             <input type="text" id="id_name_room" name="name" placeholder="enter name room" required>
@@ -41,31 +35,26 @@
 
     <div id="enter_password_and_name">
         <form action="http://localhost:8000/get/user" method="POST">
+            <input type="button" id="back_id" value="Back">
+            <input type="text" id="input_name_user" name="user_name" placeholder="Enter your name">
             <input type="text" id="input_name_chat" name="name_chat" placeholder="Enter name chat">
             <input type="text" id="input_password_chat" name="password_chat" placeholder="Enter password chat">
             <button type="submit"><b>Connect</b></button>
         </form>
     </div>
 
-    <div class="private_room" id="private_room_id">
-        <h1>Private Message Chat</h1>
-        <div id="private_storage_text"></div>
-        <div id="connected_private_name"></div>
-        <input type="text" id="message_private" placeholder="Enter some message">
-        <button type="submit"><b>Send</b></button>
-    </div>
-
     <div class="chat_container" id="chat_id">
         <br>
         <h1>Real Time Messaging</h1> <br>
-
         <div id="storage_text"></div>
         <div id="connected_name"></div>
-
         <input type="text" id="message" placeholder="Enter message">
         <button type='submit' id="send">Send</button>
+        <button type="button"><b>Disconnect</b></button>
     </div>
+
     <script language="javascript" type="text/javascript" src="./src/script.js"></script>
+    <script language="javascript" type="text/javascript" src="./src/client.js"></script>
 </body>
 
 </html>
