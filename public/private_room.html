@@ -5,22 +5,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>PrivateRealTimeChatRoom</title>
 </head>
 
 <body>
 
     <div class="private_room_class" id="private_room_id">
         <h1>Private Message Chat</h1>
-        <form action="http://localhost:8080/private/room" method="POST">
             <div id="private_storage_text"></div>
-            <div id="connected_private_name"></div>
+          <div id="connected_private_name"></div>
             <input type="text" id="message_private" placeholder="Enter some message">
-            <button type="submit"><b>Send</b></button>
-            <button type="button"><b>Disconnect</b></button>
-        </form>
+            <button type="submit" onclick="sendMessage()" > <b>Send</b></button>
+            <button type="button" id="private_button_disconnect"><b>Disconnect</b></button>
     </div>
     <script language="javascript" type="text/javascript" src="./src/script.js"></script>
+    <script language="javascript" type="text/javascript" src="./src/client.js"></script>
 </body>
 
 </html>

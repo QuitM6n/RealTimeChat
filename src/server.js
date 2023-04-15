@@ -10,15 +10,17 @@ const webServ = new WebSocket.Server({ server });
 const bodyParser = require('body-parser');
 const db = require('./database.js');
 
+
 webServ.on('connection', ws => {
   ws.on('message', data => {
+    const message = JSON.parse(data);
     webServ.clients.forEach(client => {
       if (client !== ws && client.readyState == WebSocket.OPEN) {
-        client.send(data);
-        console.log('D:', data.value);
+        client.send(JSON.stringify({ type: "message", data: message.data, name: message.name}));
       }
-    })
+    });
   });
+
   ws.on('close', () => {
     console.log('Client disconnected !');
   });
@@ -36,12 +38,17 @@ app.get('/index.html', function (req, res) {
   res.sendFile(__dirname + "../public/" + "index.html");
 });
 
+app.get('/private_room.html', function (req, res) {
+  res.sendFile(__dirname + "../public/" + "private_room.html");
+});
+
+
 app.post('/create/room', urlencodedParser, function (req, res) {
   const { password, name } = req.body;
   db.client.query(`INSERT INTO PrivateRoom(password, name) VALUES($1,$2)`, [password, name], (err, result) => {
     if (!err) {
       res.send('Success inserted');
-      res.redirect('http://localhost:8080/')
+      res.redirect('http://localhost:8080/index.html')
     } else {
       res.write('404 not found');
       console.error('Error: ', err.message);
@@ -69,12 +76,12 @@ app.post('/get/user', urlencodedParser, (req, res) => {
   });
 });
 
-app.get('/private_room.html', function (req, res) {
-  res.sendFile(__dirname + "../public/" + "private_room.html");
+app.post('/private/room', urlencodedParser, function (req, res) {
+  res.write('HEllo');
 });
 
 server.listen(PORT, function () {
   const host = server.address().address
   const port = server.address().port
-  console.log("Example app listening at http://%s:%s", host, port)
+  console.log("App listening at http://%s:%s", host, port)
 });

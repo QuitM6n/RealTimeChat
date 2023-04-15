@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
-    <style>
-    </style>
+    <!-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> -->
+    <title>Real time Chat</title>
 </head>
 
 <body>
@@ -37,7 +36,6 @@
     <div id="enter_password_and_name">
         <form action="http://localhost:8080/get/user" method="POST">
             <input type="button" id="back_id" value="Back">
-            <input type="text" id="input_name_user" name="user_name" placeholder="Enter your name">
             <input type="text" id="input_name_chat" name="name_chat" placeholder="Enter name chat">
             <input type="text" id="input_password_chat" name="password_chat" placeholder="Enter password chat">
             <button type="submit"><b>Connect</b></button>
@@ -49,13 +47,13 @@
         <h1>Real Time Messaging</h1> <br>
         <div id="storage_text"></div>
         <div id="connected_name"></div>
-        <input type="text" id="message" placeholder="Enter message">
-        <button type='submit' id="send">Send</button>
-        <button type="button"><b>Disconnect</b></button>
+        <input type="text" id="message" placeholder="Enter message" class="pg-3 w-full border-t border-gray-300 outline-none text-gray-700">
+        <button type='submit' id="send" class="px-8 py-3 bg-green-500 text-white hover:bg-green-600 transition-colors" onclick="sendMessage()">Send</button>
+        <button type="button" id="disconnect_id"><b>Disconnect</b></button>
     </div>
 
     <script language="javascript" type="text/javascript" src="./src/script.js"></script>
-    <script language="javascript" type="text/javascript" src="./src/client.js" async></script>
+    <script language="javascript" type="text/javascript" src="./src/client.js"></script>
 </body>
 
 </html>
