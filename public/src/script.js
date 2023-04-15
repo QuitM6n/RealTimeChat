@@ -6,6 +6,7 @@ document.getElementById('clickButton').onclick = () => {
     document.getElementById('input_name_id').hidden = true;
     document.getElementById('clickButton').hidden = true;
     document.getElementById('name_label_id').hidden = true;
+    document.getElementById('clients_name_connected').innerHTML+=username.value;
 }
 
 document.getElementById('private-room').hidden = true;
