@@ -6,17 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PrivateRealTimeChatRoom</title>
+    <style>
+        body {
+            font: 15px arial, sans-serif;
+            background-color: #d9d9d9;
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        .private_room_clas {
+            margin: auto;
+            max-width: 550px;
+            font: 15px arial, sans-serif;
+            background-color: white;
+            border-style: solid;
+            border-width: 1px;
+            padding-top: 20px;
+            padding-bottom: 25px;
+            padding-right: 25px;
+            padding-left: 25px;
+            box-shadow: 5px 5px 5px grey;
+            border-radius: 15px;
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="private_room_class" id="private_room_id">
         <h1>Private Message Chat</h1>
-            <div id="private_storage_text"></div>
-          <div id="connected_private_name"></div>
-            <input type="text" id="message_private" placeholder="Enter some message">
-            <button type="submit" onclick="sendMessage()" > <b>Send</b></button>
-            <button type="button" id="private_button_disconnect"><b>Disconnect</b></button>
+        <div id="private_storage_text"></div>
+        <div id="connected_private_name"></div>
+        <input type="text" id="message_private" placeholder="Enter some message">
+        <button type="submit" onclick="sendMessage()"> <b>Send</b></button>
+        <button type="button" id="private_button_disconnect"><b>Disconnect</b></button>
     </div>
     <script language="javascript" type="text/javascript" src="./src/script.js"></script>
     <script language="javascript" type="text/javascript" src="./src/client.js"></script>

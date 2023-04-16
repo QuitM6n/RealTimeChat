@@ -15,4 +15,4 @@ client.connect(function (err) {
   console.log('Connected to DB');
 });
 
- module.exports = { client };
+module.exports = { client };

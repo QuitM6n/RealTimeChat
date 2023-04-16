@@ -2,13 +2,11 @@
 const messages = document.getElementById('storage_text');
 const private_messages = document.getElementById('private_storage_text');
 
-const sendButton = document.getElementById('send');
 const username = document.getElementById('input_name_id');
 
 const private_message = document.getElementById('message_private');
 const user_list = document.getElementById('connected_name');
 const user_list_private = document.getElementById('connected_private_name');
-
 
 const today = new Date();
 let now = today.toLocaleTimeString('it-IT').slice(0, 5);
@@ -20,17 +18,27 @@ if (window.location.href == 'http://localhost:8080/index.html') {
         connection.close();
     }
 
+    let input = document.getElementById('message');
+    input.addEventListener('keypress', function (event) {
+        if (event.key == "Enter") {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
+
     connection.onopen = (event) => {
         console.log('Success connected');
     };
 
     connection.onclose = (event) => {
         console.log('Client is disconnected', event.reason);
-    }
+    };
 
     connection.onerror = (event) => {
+        event.preventDefault();
         console.error('WebSocket error observed: ', event.toString());
-    }
+        window.location.reload(); // this allows me to stay on the same page in case of an error
+    };
 
     connection.addEventListener('message', event => {
         const data = JSON.parse(event.data);
@@ -73,6 +81,13 @@ if (window.location.href == 'http://localhost:8080/private_room.html') {
     document.getElementById('private_button_disconnect').onclick = () => {
         private_connection.close();
     }
+
+    private_message.addEventListener('keypress', function (event) {
+        if (event.key == "Enter") {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
 
     var username_private = prompt("Enter your username");
 

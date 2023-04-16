@@ -48,9 +48,7 @@ app.post('/create/room', urlencodedParser, function (req, res) {
   db.client.query(`INSERT INTO PrivateRoom(password, name) VALUES($1,$2)`, [password, name], (err, result) => {
     if (!err) {
       res.send('Success inserted');
-      res.redirect('http://localhost:8080/index.html')
     } else {
-      res.write('404 not found');
       console.error('Error: ', err.message);
     }
     db.client.end();
@@ -69,15 +67,10 @@ app.post('/get/user', urlencodedParser, (req, res) => {
         console.log('Passworc does not match');
       }
     } else {
-      res.write('404 not found');
       console.error('Error: ', err.message);
     }
     db.client.end();
   });
-});
-
-app.post('/private/room', urlencodedParser, function (req, res) {
-  res.write('HEllo');
 });
 
 server.listen(PORT, function () {
