@@ -9,16 +9,34 @@ const webServ = new WebSocket.Server({ server });
 
 const bodyParser = require('body-parser');
 const db = require('./database.js');
+const fs = require('fs');
 
 
 webServ.on('connection', ws => {
-  ws.on('message', data => {
-    const message = JSON.parse(data);
-    webServ.clients.forEach(client => {
-      if (client !== ws && client.readyState == WebSocket.OPEN) {
-        client.send(JSON.stringify({ type: "message", data: message.data, name: message.name}));
-      }
-    });
+  ws.on('message', event => {
+    if (event instanceof FileReader) {
+      const buffer = Buffer.from(event);
+      fs.writeFile('storage.txt', buffer, (err) => {
+        if (err) {
+          throw err
+        } else {
+          console.log('Success saved');
+        }
+      });
+    } else {
+      console.warn('Unknow type of data: ', typeof event.data);
+    }
+
+    if (JSON.parse(event)) {
+      const message = JSON.parse(event);
+      webServ.clients.forEach(client => {
+        if (client !== ws && client.readyState == WebSocket.OPEN) {
+          client.send(JSON.stringify({ type: "message", data: message.data, name: message.name }));
+        }
+      });
+    } else {
+      console.warn('Failed to parse some data,forbid parse such data: ', typeof event.data);
+    }
   });
 
   ws.on('close', () => {

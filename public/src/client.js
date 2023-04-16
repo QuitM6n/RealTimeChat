@@ -1,4 +1,3 @@
-
 const messages = document.getElementById('storage_text');
 const private_messages = document.getElementById('private_storage_text');
 
@@ -58,6 +57,19 @@ if (window.location.href == 'http://localhost:8080/index.html') {
         message.value = "";
     }
 
+    function sendFile() {
+        var fileInput = document.getElementById('file_id');
+        var file = fileInput.files[0];
+        var reader = new FileReader();
+
+        reader.onload = function () {
+            var content = reader.result;
+            connection.send(content);
+        }
+
+        reader.readAsArrayBuffer(file);
+    }
+
     function addMessage(message, name) {
         const node = document.createElement("P1");
         const node_name = document.createElement("P2");
@@ -109,6 +121,19 @@ if (window.location.href == 'http://localhost:8080/private_room.html') {
             addMessage(data.data, data.name);
         }
     });
+
+    function privateSendFile() {
+        var privateInputFile = document.getElementById('file_id_private')
+        var file = privateInputFile.files[0];
+        var readerFile = new FileReader();
+
+        readerFile.onload = function () {
+            var private_content = readerFile.result;
+            private_connection.send(private_content);
+        }
+
+        readerFile.readAsArrayBuffer(file);
+    }
 
     function sendMessage() {
         if (!private_message && !username_private) {
