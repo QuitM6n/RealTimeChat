@@ -9,20 +9,36 @@ const webServ = new WebSocket.Server({ server });
 
 const bodyParser = require('body-parser');
 const db = require('./database.js');
-const fs = require('fs');
+const storage = require('./storage.js');
+
 
 webServ.on('connection', ws => {
   ws.on('message', event => {
+    const forBotMessages = JSON.parse(event);
+    if (webServ.clients.size === 1) {
+      ws.send(JSON.stringify({type:'bot',message:forBotMessages.message}));
+    }
+
     try {
       const message = JSON.parse(event);
       webServ.clients.forEach(client => {
         if (client !== ws && client.readyState == WebSocket.OPEN) {
-          client.send(JSON.stringify({
-            type: "message", type: "text", data: message.data,
-            name: message.name, file: message.file
-          }));
+          client.send(JSON.stringify({ type: 'message', data: message.data, name: message.name }));
         }
       });
+
+      webServ.clients.forEach(clientf => {
+        if (clientf !== ws && clientf.readyState === WebSocket.OPEN) {
+          clientf.send(JSON.stringify({ type: 'text', file: message.file }));
+        }
+      });
+
+      if (message.type === 'text') {
+        // storage.addFile(message.file);
+      } else if (message.type === 'message') {
+        // storage.addMessage(message.data, message.name);
+      }
+
     } catch (err) {
       console.error("Catched error: ", err);
     };
@@ -85,3 +101,6 @@ server.listen(PORT, function () {
   const port = server.address().port
   console.log("App listening at http://%s:%s", host, port)
 });
+
+
+module.exports = { webServ };

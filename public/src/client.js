@@ -6,6 +6,7 @@ const username = document.getElementById('input_name_id');
 const private_message = document.getElementById('message_private');
 const user_list = document.getElementById('connected_name');
 const user_list_private = document.getElementById('connected_private_name');
+const nameBot = 'Maga';
 
 const today = new Date();
 let now = today.toLocaleTimeString('it-IT').slice(0, 5);
@@ -43,12 +44,35 @@ if (window.location.href == 'http://localhost:8080/index.html') {
         const data = JSON.parse(event.data);
         if (data.type === "message") {
             addMessage(data.data, data.name);
-        } else if (data.type == "text") {
+        } else if (data.type === "text") {
             addFile(data.file);
+        } else if (data.type === "bot") {
+            BotResponse();
         } else {
             console.error('Cannot find data of required type');
         }
     });
+
+    function BotResponse() {
+        const message = document.getElementById('message').value;
+        if (message === 'Hi' || message === 'Hello') {
+            messages.innerHTML += nameBot + ' Welcome ! i am glad to see you here';
+        } else if (message === 'What is your name ?') {
+            messages.innerHTML += 'My name is ' + nameBot;
+        } else if (message === 'Where are you from ?') {
+            messages.innerHTML += ' I am from Brazil';
+        } else if (message === 'Do you have some hobbies ?') {
+            answ = prompt('Are you really interesting my hobbies ?')
+            if (answ === 'Yes') {
+                messages.innerHTML += 'Well,i like riding a bike';
+            }
+        }else if(message==='Possible you want to know something about me ?'){
+            messages.innerHTML += 'Yes,tell me please';
+        }else{
+            messages.innerHTML+='Unfortunately the bot doesnot know about your message and cannot give you answerd'
+        }
+        message.value = '';
+    }
 
     function sendMessage() {
         const message = document.getElementById('message').value;
