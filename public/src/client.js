@@ -43,6 +43,10 @@ if (window.location.href == 'http://localhost:8080/index.html') {
         const data = JSON.parse(event.data);
         if (data.type === "message") {
             addMessage(data.data, data.name);
+        } else if (data.type == "text") {
+            addFile(data.file);
+        } else {
+            console.error('Cannot find data of required type');
         }
     });
 
@@ -58,16 +62,23 @@ if (window.location.href == 'http://localhost:8080/index.html') {
     }
 
     function sendFile() {
-        var fileInput = document.getElementById('file_id');
-        var file = fileInput.files[0];
-        var reader = new FileReader();
+        let fileInput = document.getElementById('file_id');
+        let file = fileInput.files[0];
+        let reader = new FileReader();
 
-        reader.onload = function () {
+        reader.onload = () => {
             var content = reader.result;
-            connection.send(content);
+            addFile(content);
+            connection.send(JSON.stringify({ type: "text", file: content }));
         }
+        reader.readAsText(file);
+    };
 
-        reader.readAsArrayBuffer(file);
+    function addFile(content) {
+        const node = document.createElement("P");
+        const file_content = document.createTextNode(content);
+        node.appendChild(file_content);
+        messages.appendChild(node);
     }
 
     function addMessage(message, name) {
@@ -82,10 +93,9 @@ if (window.location.href == 'http://localhost:8080/index.html') {
 
         messages.appendChild(node);
         user_list.appendChild(node_name);
-
-        message.value = "";
     }
 }
+
 
 if (window.location.href == 'http://localhost:8080/private_room.html') {
     const private_connection = new WebSocket('ws://localhost:8080/private_room.html');
@@ -119,17 +129,22 @@ if (window.location.href == 'http://localhost:8080/private_room.html') {
         const data = JSON.parse(event.data);
         if (data.type === "message") {
             addMessage(data.data, data.name);
+        } else if (data.type == "text") {
+            addFile(data.file);
+        } else {
+            console.error("Failed to find need type of data");
         }
     });
 
     function privateSendFile() {
-        var privateInputFile = document.getElementById('file_id_private')
-        var file = privateInputFile.files[0];
-        var readerFile = new FileReader();
+        let privateInputFile = document.getElementById('file_id_private')
+        let file = privateInputFile.files[0];
+        let readerFile = new FileReader();
 
         readerFile.onload = function () {
             var private_content = readerFile.result;
-            private_connection.send(private_content);
+            addFile(private_content);
+            private_connection.send(JSON.stringify({ type: "text", file: private_content }));
         }
 
         readerFile.readAsArrayBuffer(file);
@@ -145,9 +160,16 @@ if (window.location.href == 'http://localhost:8080/private_room.html') {
         private_message.value = "";
     }
 
+    function addFile(private_content) {
+        const node = document.createElement("P");
+        const for_content = document.createTextNode(private_content);
+        node.appendChild(for_content);
+        private_messages.appendChild(node);
+    }
+
     function addMessage(message, name) {
         const node_for_message = document.createElement("P");
-        const node_for_users = document.createElement("P1");
+        const node_for_users = document.createElement("P");
 
         const private_message = document.createTextNode(now.toString() + ': ' + message);
         const private_name = document.createTextNode(name);
