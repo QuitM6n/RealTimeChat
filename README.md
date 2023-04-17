@@ -11,8 +11,8 @@
 ***7.Added validation***<br/>
 ***8.Added the ability to send an image or file another client***<br/>
 ***9.Added storage space for data that clients send each other***<br/>
+***10.Added a bot for a user if he has no friends or anyone who can support a discussion with him says***<br/>
 
 ## Unfinished tasks
 ***1. Decorate chat***<br/>
 ***2.Add the ability to enable and disable the dictation of SMS messages***<br/>
-***3.Add a bot for a user if he has no friends or anyone who can support a discussion with him says***<br/>
