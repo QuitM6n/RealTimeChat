@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: pass123
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+  web:
+    image: web-app
+    depends_on:
+      - db
+    ports:
+      - "8700:8700"

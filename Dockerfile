@@ -1,16 +1,15 @@
-FROM node:14-alpine
+FROM node:alpine
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./ 
 
-RUN apk update && \
-    apk add --no-cache git && \
-    npm install pg && \
-    npm install
+RUN npm install 
 
 COPY . .
 
-EXPOSE 8080 
+EXPOSE 8070
 
 CMD [ "node", "./src/server.js" ]
+
+

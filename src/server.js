@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const http = require('http');
 
-const PORT = 8080;
+const PORT = 8070;
 const server = http.createServer(app);
 const WebSocket = require('ws')
 const webServ = new WebSocket.Server({ server });
@@ -34,9 +34,9 @@ webServ.on('connection', ws => {
       });
 
       if (message.type === 'text') {
-        // storage.addFile(message.file);
+         storage.addFile(message.file);
       } else if (message.type === 'message') {
-        // storage.addMessage(message.data, message.name);
+         storage.addMessage(message.data, message.name);
       }
 
     } catch (err) {

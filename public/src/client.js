@@ -11,8 +11,8 @@ const nameBot = 'Maga';
 const today = new Date();
 let now = today.toLocaleTimeString('it-IT').slice(0, 5);
 
-if (window.location.href == 'http://localhost:8080/index.html') {
-    const connection = new WebSocket('ws://localhost:8080/index.html');
+if (window.location.href == 'http://localhost:8070/index.html') {
+    const connection = new WebSocket('ws://localhost:8070/index.html');
 
     document.getElementById('disconnect_id').onclick = () => {
         connection.close();
@@ -56,20 +56,20 @@ if (window.location.href == 'http://localhost:8080/index.html') {
     function BotResponse() {
         const message = document.getElementById('message').value;
         if (message === 'Hi' || message === 'Hello') {
-            messages.innerHTML += nameBot + ' Welcome ! i am glad to see you here';
+            messages.innerHTML += 'Welcome ! i am glad to see you here' + "<br/>";
         } else if (message === 'What is your name ?') {
-            messages.innerHTML += 'My name is ' + nameBot;
+            messages.innerHTML += 'My name is ' + nameBot + "<br/>";
         } else if (message === 'Where are you from ?') {
-            messages.innerHTML += ' I am from Brazil';
+            messages.innerHTML += 'I am from Brazil' + "<br/>";
         } else if (message === 'Do you have some hobbies ?') {
             answ = prompt('Are you really interesting my hobbies ?')
             if (answ === 'Yes') {
-                messages.innerHTML += 'Well,i like riding a bike';
+                messages.innerHTML += ' Well,i like riding a bike' + "<br/>";
             }
-        }else if(message==='Possible you want to know something about me ?'){
-            messages.innerHTML += 'Yes,tell me please';
-        }else{
-            messages.innerHTML+='Unfortunately the bot doesnot know about your message and cannot give you answerd'
+        } else if (message === 'Possible you want to know something about me ?') {
+            messages.innerHTML += ' Yes,tell me please' + "<br/>";
+        } else {
+            messages.innerHTML += 'Unfortunately the bot doesnot know about your message and cannot give you answerd' + "<br/>"
         }
         message.value = '';
     }
@@ -105,24 +105,26 @@ if (window.location.href == 'http://localhost:8080/index.html') {
         messages.appendChild(node);
     }
 
+    let userName = "";
     function addMessage(message, name) {
-        const node = document.createElement("P1");
-        const node_name = document.createElement("P2");
+        if (userName !== name) {
+            const node_name = document.createElement("P2");
+            const text_for_name = document.createTextNode(name);
+            node_name.appendChild(text_for_name);
+            user_list.appendChild(node_name);
+            userName = name;
+        }
 
-        const text_for_message = document.createTextNode(now.toString() + ': ' + message);
-        const text_for_name = document.createTextNode(name);
-
+        const node = document.createElement("P");
+        const text_for_message = document.createTextNode(now.toString() + ': ' + message + '\n');
         node.appendChild(text_for_message);
-        node_name.appendChild(text_for_name);
-
         messages.appendChild(node);
-        user_list.appendChild(node_name);
     }
 }
 
 
-if (window.location.href == 'http://localhost:8080/private_room.html') {
-    const private_connection = new WebSocket('ws://localhost:8080/private_room.html');
+if (window.location.href == 'http://localhost:8070/private_room.html') {
+    const private_connection = new WebSocket('ws://localhost:8070/private_room.html');
 
     document.getElementById('private_button_disconnect').onclick = () => {
         private_connection.close();
@@ -191,18 +193,21 @@ if (window.location.href == 'http://localhost:8080/private_room.html') {
         private_messages.appendChild(node);
     }
 
+    let privateUserName = "";
     function addMessage(message, name) {
-        const node_for_message = document.createElement("P");
-        const node_for_users = document.createElement("P");
+        if (privateUserName !== name) {
+            const node_for_users = document.createElement("P");
+            const private_name = document.createTextNode(name);
+            node_for_users.appendChild(private_name);
+            user_list_private.appendChild(node_for_users);
+            privateUserName = name;
+        }
 
-        const private_message = document.createTextNode(now.toString() + ': ' + message);
-        const private_name = document.createTextNode(name);
+        const node_for_message = document.createElement("P");
+        const private_message = document.createTextNode(now.toString() + ': ' + message + '\n');
 
         node_for_message.appendChild(private_message);
-        node_for_users.appendChild(private_name);
-
         private_messages.appendChild(node_for_message);
-        user_list_private.appendChild(node_for_users);
 
         private_message.value = "";
     }
